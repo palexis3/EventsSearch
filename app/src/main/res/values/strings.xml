@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">EventSearch</string>
+    <string name="events_search_error">Could not find events.</string>
 </resources>
