@@ -20,4 +20,3 @@ data class EventsList(
 data class SearchResponse(
     val _embedded: EventsList
 )
-
