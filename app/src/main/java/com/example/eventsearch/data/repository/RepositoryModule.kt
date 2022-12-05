@@ -1,4 +1,4 @@
-package com.example.eventsearch.repository
+package com.example.eventsearch.data.repository
 
 import dagger.Binds
 import dagger.Module

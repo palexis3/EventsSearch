@@ -12,6 +12,7 @@ buildscript {
         hilt_navigation_version = '1.0.0'
         material3_version = '1.0.0'
         timber_version = '5.0.1'
+        room_version = '2.4.3'
     }
 }
 

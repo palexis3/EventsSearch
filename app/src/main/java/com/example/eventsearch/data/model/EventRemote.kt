@@ -1,13 +1,11 @@
-package com.example.eventsearch.model
+package com.example.eventsearch.data.model
 
+import com.example.eventsearch.data.local.Event
 import com.example.eventsearch.helper.formatToReadableDate
 import com.example.eventsearch.helper.toDate
 
-data class Event(
+data class EventRemote(
     val name: String,
-    val type: String?,
-    val id: String?,
-    val url: String?,
     val images: List<Image>,
     val dates: Dates
 ) {
@@ -15,12 +13,19 @@ data class Event(
     val imageUrl: String? = images.filter { it.url?.contains("PORTRAIT") ?: false }[0].url
 }
 
+fun EventRemote.toEvent(keyword: String) = Event(
+    keyword = keyword,
+    name = this.name,
+    readableDate = this.readableDate,
+    imageUrl = this.imageUrl
+)
+
 data class Image(
     val url: String?
 )
 
 data class EventsList(
-    val events: List<Event>
+    val events: List<EventRemote>
 )
 
 data class Dates(
