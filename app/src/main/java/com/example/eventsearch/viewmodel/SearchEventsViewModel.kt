@@ -2,9 +2,9 @@ package com.example.eventsearch.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.eventsearch.data.local.EventUi
 import com.example.eventsearch.helper.Result
 import com.example.eventsearch.helper.asResult
-import com.example.eventsearch.data.model.EventRemote
 import com.example.eventsearch.data.repository.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 sealed interface SearchListUiState {
-    data class Success(val events: List<EventRemote>) : SearchListUiState
+    data class Success(val events: List<EventUi>) : SearchListUiState
     object Error : SearchListUiState
     object Loading : SearchListUiState
     object Uninitialized : SearchListUiState
@@ -34,7 +34,7 @@ class SearchEventsViewModel @Inject constructor(
                 .collect { result ->
                     val searchState = when (result) {
                         is Result.Success -> {
-                            val events = result.data._embedded.events
+                            val events = result.data
                             SearchListUiState.Success(events)
                         }
                         is Result.Loading -> SearchListUiState.Loading

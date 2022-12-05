@@ -11,20 +11,17 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface DatabaseModule {
+object DatabaseModule {
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): EventDatabase {
-        return Room.databaseBuilder(
+    fun provideDatabase(@ApplicationContext context: Context): EventDatabase =
+        Room.databaseBuilder(
             context,
             EventDatabase::class.java,
             "event-database"
         ).build()
-    }
 
     @Provides
-    @Singleton
-    fun provideEventsDao(eventDatabase: EventDatabase): EventDao {
-        return eventDatabase.eventDao()
-    }
+    fun provideEventsDao(eventDatabase: EventDatabase): EventDao =
+        eventDatabase.eventDao()
 }

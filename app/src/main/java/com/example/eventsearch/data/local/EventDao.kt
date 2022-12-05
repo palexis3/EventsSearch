@@ -12,5 +12,5 @@ interface EventDao {
     fun getEvents(keyword: String): Flow<List<Event>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertEvents(events: List<Event>)
+    fun insertEvents(events: List<Event>)
 }

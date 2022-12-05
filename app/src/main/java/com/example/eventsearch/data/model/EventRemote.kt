@@ -13,13 +13,6 @@ data class EventRemote(
     val imageUrl: String? = images.filter { it.url?.contains("PORTRAIT") ?: false }[0].url
 }
 
-fun EventRemote.toEvent(keyword: String) = Event(
-    keyword = keyword,
-    name = this.name,
-    readableDate = this.readableDate,
-    imageUrl = this.imageUrl
-)
-
 data class Image(
     val url: String?
 )
@@ -38,4 +31,11 @@ data class LocalDate(
 
 data class SearchResponse(
     val _embedded: EventsList
+)
+
+fun EventRemote.toEvent(keyword: String) = Event(
+    keyword = keyword,
+    name = this.name,
+    readableDate = this.readableDate,
+    imageUrl = this.imageUrl
 )

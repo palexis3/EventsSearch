@@ -45,7 +45,7 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.eventsearch.R
-import com.example.eventsearch.data.model.EventRemote
+import com.example.eventsearch.data.local.EventUi
 import com.example.eventsearch.viewmodel.SearchEventsViewModel
 import com.example.eventsearch.viewmodel.SearchListUiState
 
@@ -131,7 +131,7 @@ fun SearchListState(
 
 @Composable
 fun EventItem(
-    event: EventRemote
+    event: EventUi
 ) {
     Row(
         modifier = Modifier

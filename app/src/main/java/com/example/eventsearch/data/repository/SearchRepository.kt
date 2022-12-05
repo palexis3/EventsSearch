@@ -1,8 +1,9 @@
 package com.example.eventsearch.data.repository
 
-import com.example.eventsearch.data.model.SearchResponse
+import com.example.eventsearch.data.local.EventUi
 import kotlinx.coroutines.flow.Flow
 
 interface SearchRepository {
-    fun search(keyword: String): Flow<SearchResponse>
+    suspend fun fetchFromApi(keyword: String)
+    fun search(keyword: String): Flow<List<EventUi>>
 }
