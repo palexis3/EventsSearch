@@ -17,6 +17,7 @@ sealed interface SearchListUiState {
     data class Success(val events: List<Event>) : SearchListUiState
     object Error : SearchListUiState
     object Loading : SearchListUiState
+    object Uninitialized : SearchListUiState
 }
 
 @HiltViewModel
@@ -24,7 +25,7 @@ class SearchEventsViewModel @Inject constructor(
     private val searchRepository: SearchRepository
 ) : ViewModel() {
 
-    private val _searchListState = MutableStateFlow<SearchListUiState>(SearchListUiState.Loading)
+    private val _searchListState = MutableStateFlow<SearchListUiState>(SearchListUiState.Uninitialized)
     val searchListState = _searchListState.asStateFlow()
 
     fun search(keyword: String) {
@@ -42,5 +43,9 @@ class SearchEventsViewModel @Inject constructor(
                     _searchListState.update { searchState }
                 }
         }
+    }
+
+    fun resetSearch() {
+        _searchListState.update { SearchListUiState.Uninitialized }
     }
 }

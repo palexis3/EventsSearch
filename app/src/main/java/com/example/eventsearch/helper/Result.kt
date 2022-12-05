@@ -20,8 +20,8 @@ sealed interface Result<out T> {
 fun <T> Flow<T>.asResult(): Flow<Result<T>> {
     return this
         .map<T, Result<T>> {
-                Result.Success(it)
-            }
+            Result.Success(it)
+        }
         .onStart { emit(Result.Loading) }
         .retryWhen { cause, attempt ->
             if (cause is IOException && attempt < MAX_RETRIES) {
@@ -32,5 +32,7 @@ fun <T> Flow<T>.asResult(): Flow<Result<T>> {
                 false
             }
         }
-        .catch { emit(Result.Error(it)) }
+        .catch {
+            emit(Result.Error(it))
+        }
 }

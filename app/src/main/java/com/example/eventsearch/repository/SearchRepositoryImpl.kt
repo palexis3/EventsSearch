@@ -11,5 +11,5 @@ class SearchRepositoryImpl @Inject constructor(
 ) : SearchRepository {
 
     override fun search(keyword: String): Flow<SearchResponse> =
-        flow { api.search(keyword) }
+        flow { emit(api.search(keyword)) }
 }
