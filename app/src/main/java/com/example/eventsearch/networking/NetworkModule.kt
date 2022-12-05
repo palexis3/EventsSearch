@@ -12,7 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-private const val BASE_URL = "https://app.ticketmaster.com/discovery/v2/events.json?city=San Francisco&apikey="
+private const val BASE_URL = "https://app.ticketmaster.com/"
 
 @Module
 @InstallIn(SingletonComponent::class)

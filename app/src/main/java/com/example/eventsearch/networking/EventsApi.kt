@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface EventsApi {
 
-    @GET(".")
+    @GET("/discovery/v2/events.json?city=San Francisco&apikey=")
     suspend fun search(
         @Query("keyword") keyword: String
     ) : SearchResponse
