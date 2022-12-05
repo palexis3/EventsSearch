@@ -1,6 +1,7 @@
 package com.example.eventsearch.composable
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -31,6 +32,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
@@ -48,7 +50,6 @@ import com.example.eventsearch.helper.toDate
 import com.example.eventsearch.model.Event
 import com.example.eventsearch.viewmodel.SearchEventsViewModel
 import com.example.eventsearch.viewmodel.SearchListUiState
-import timber.log.Timber
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
@@ -90,8 +91,6 @@ fun SearchScreen(
 fun SearchListState(
     uiState: SearchListUiState
 ) {
-
-    Timber.d("XXX SearchListState uiState: $uiState")
     LazyColumn(
         verticalArrangement = Arrangement.SpaceEvenly,
         contentPadding = PaddingValues(
@@ -104,16 +103,23 @@ fun SearchListState(
             SearchListUiState.Uninitialized -> {}
             SearchListUiState.Error -> {
                 item {
-                    Text(
-                        text = stringResource(id = R.string.events_search_error),
-                        style = MaterialTheme.typography.labelMedium,
-                        fontWeight = FontWeight.ExtraBold
-                    )
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        Text(
+                            text = stringResource(id = R.string.events_search_error),
+                            style = MaterialTheme.typography.labelMedium,
+                            modifier = Modifier.align(Alignment.TopCenter),
+                            fontWeight = FontWeight.ExtraBold
+                        )
+                    }
                 }
             }
             SearchListUiState.Loading -> {
                 item {
-                    CircularProgressIndicator()
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.align(Alignment.TopCenter)
+                        )
+                    }
                 }
             }
             is SearchListUiState.Success -> {
@@ -139,7 +145,9 @@ fun EventItem(
         AsyncImage(
             model = imageUrl,
             contentDescription = "Event Image",
-            modifier = Modifier.fillMaxHeight().width(150.dp),
+            modifier = Modifier
+                .fillMaxHeight()
+                .width(150.dp),
             contentScale = ContentScale.FillBounds
         )
 
