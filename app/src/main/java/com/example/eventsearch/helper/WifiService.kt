@@ -16,13 +16,16 @@ class WifiService {
     }
 
     fun initialize(context: Context) {
-        wifiManager = context.getSystemService(Context.WIFI_SERVICE) as WifiManager
-        connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        wifiManager =
+            context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun isOnline(): Boolean {
-        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         if (capabilities != null) {
             when {
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
