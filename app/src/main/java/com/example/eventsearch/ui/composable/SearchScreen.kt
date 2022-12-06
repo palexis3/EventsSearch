@@ -203,6 +203,7 @@ fun SearchTextField(
         modifier = modifier,
         value = query,
         singleLine = true,
+        placeholder = { Text(stringResource(id = R.string.search)) },
         onValueChange = { value ->
             onQueryChanged(value)
         },
