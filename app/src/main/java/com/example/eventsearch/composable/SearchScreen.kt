@@ -45,9 +45,7 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.eventsearch.R
-import com.example.eventsearch.helper.formatToReadableDate
-import com.example.eventsearch.helper.toDate
-import com.example.eventsearch.model.Event
+import com.example.eventsearch.data.local.EventUi
 import com.example.eventsearch.viewmodel.SearchEventsViewModel
 import com.example.eventsearch.viewmodel.SearchListUiState
 
@@ -60,7 +58,7 @@ fun SearchScreen(
 
     LaunchedEffect(key1 = query) {
         if (query.isNotEmpty()) {
-            viewModel.search(query)
+            viewModel.search(query.trim())
         } else {
             viewModel.resetSearch()
         }
@@ -133,27 +131,24 @@ fun SearchListState(
 
 @Composable
 fun EventItem(
-    event: Event
+    event: EventUi
 ) {
     Row(
         modifier = Modifier
             .fillMaxSize()
-            .padding(12.dp),
-        horizontalArrangement = Arrangement.Start
+            .padding(12.dp)
     ) {
-        val imageUrl = event.images.filter { it.url?.contains("PORTRAIT") ?: false }[0].url
-        AsyncImage(
-            model = imageUrl,
-            contentDescription = "Event Image",
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(150.dp),
-            contentScale = ContentScale.FillBounds
-        )
-
-        Spacer(Modifier.width(8.dp))
-
-        val date = event.dates.start.localDate.toDate().formatToReadableDate()
+        if (event.imageUrl.isNullOrEmpty().not()) {
+            AsyncImage(
+                model = event.imageUrl,
+                contentDescription = "Event Image",
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width(150.dp),
+                contentScale = ContentScale.FillBounds
+            )
+            Spacer(Modifier.width(8.dp))
+        }
 
         Column {
             Text(
@@ -164,11 +159,13 @@ fun EventItem(
 
             Spacer(Modifier.height(4.dp))
 
-            Text(
-                text = date,
-                style = MaterialTheme.typography.bodyMedium,
-                fontStyle = FontStyle.Italic
-            )
+            if (event.readableDate.isNotEmpty()) {
+                Text(
+                    text = event.readableDate,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontStyle = FontStyle.Italic
+                )
+            }
         }
     }
     Spacer(Modifier.height(1.dp))

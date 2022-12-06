@@ -1,7 +1,7 @@
-package com.example.eventsearch.networking
+package com.example.eventsearch.data.remote
 
 import com.example.eventsearch.BuildConfig
-import com.example.eventsearch.model.SearchResponse
+import com.example.eventsearch.data.model.SearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
