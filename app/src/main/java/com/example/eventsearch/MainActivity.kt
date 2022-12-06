@@ -3,7 +3,7 @@ package com.example.eventsearch
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.eventsearch.composable.SearchScreen
+import com.example.eventsearch.ui.composable.SearchScreen
 import com.example.eventsearch.ui.theme.EventSearchTheme
 import dagger.hilt.android.AndroidEntryPoint
 

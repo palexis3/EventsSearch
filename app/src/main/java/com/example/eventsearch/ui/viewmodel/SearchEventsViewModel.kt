@@ -1,4 +1,4 @@
-package com.example.eventsearch.viewmodel
+package com.example.eventsearch.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

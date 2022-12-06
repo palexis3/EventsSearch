@@ -1,4 +1,4 @@
-package com.example.eventsearch.composable
+package com.example.eventsearch.ui.composable
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -46,8 +46,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.eventsearch.R
 import com.example.eventsearch.data.local.EventUi
-import com.example.eventsearch.viewmodel.SearchEventsViewModel
-import com.example.eventsearch.viewmodel.SearchListUiState
+import com.example.eventsearch.ui.viewmodel.SearchEventsViewModel
+import com.example.eventsearch.ui.viewmodel.SearchListUiState
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
