@@ -1,5 +1,7 @@
 package com.example.eventsearch.ui.composable
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -46,16 +48,20 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.eventsearch.R
 import com.example.eventsearch.data.model.EventUi
+import com.example.eventsearch.helper.WifiService
 import com.example.eventsearch.ui.theme.ExtraSmallPadding
 import com.example.eventsearch.ui.theme.MediumPadding
 import com.example.eventsearch.ui.theme.SmallPadding
 import com.example.eventsearch.ui.viewmodel.SearchEventsViewModel
 import com.example.eventsearch.ui.viewmodel.SearchListUiState
+import com.example.eventsearch.ui.viewmodel.WifiServiceViewModel
 
+@RequiresApi(Build.VERSION_CODES.M)
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SearchScreen(
-    viewModel: SearchEventsViewModel = hiltViewModel()
+    viewModel: SearchEventsViewModel = hiltViewModel(),
+    wifiServiceViewModel: WifiServiceViewModel = hiltViewModel()
 ) {
     var query by rememberSaveable { mutableStateOf("") }
 
@@ -84,13 +90,19 @@ fun SearchScreen(
 
         Spacer(Modifier.height(SmallPadding))
 
-        SearchListState(uiState = uiState)
+        SearchListState(
+            uiState = uiState,
+            wifiService = wifiServiceViewModel.wifiService
+        )
     }
 }
 
+
+@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun SearchListState(
-    uiState: SearchListUiState
+    uiState: SearchListUiState,
+    wifiService: WifiService
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.SpaceEvenly,
@@ -125,23 +137,28 @@ fun SearchListState(
             }
             is SearchListUiState.Success -> {
                 items(uiState.eventUis) { eventUi ->
-                    EventItem(eventUi)
+                    EventUiItem(
+                        eventUi,
+                        wifiService
+                    )
                 }
             }
         }
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.M)
 @Composable
-fun EventItem(
-    eventUi: EventUi
+fun EventUiItem(
+    eventUi: EventUi,
+    wifiService: WifiService
 ) {
     Row(
         modifier = Modifier
             .fillMaxSize()
             .padding(MediumPadding)
     ) {
-        if (eventUi.imageUrl.isNullOrEmpty().not()) {
+        if (eventUi.imageUrl.isNullOrEmpty().not() && wifiService.isOnline()) {
             AsyncImage(
                 model = eventUi.imageUrl,
                 contentDescription = stringResource(id = R.string.event_image),
