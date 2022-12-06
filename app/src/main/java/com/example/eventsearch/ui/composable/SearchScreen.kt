@@ -46,6 +46,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.eventsearch.R
 import com.example.eventsearch.data.local.EventUi
+import com.example.eventsearch.ui.theme.ExtraSmallPadding
+import com.example.eventsearch.ui.theme.MediumPadding
+import com.example.eventsearch.ui.theme.SmallPadding
 import com.example.eventsearch.ui.viewmodel.SearchEventsViewModel
 import com.example.eventsearch.ui.viewmodel.SearchListUiState
 
@@ -69,7 +72,7 @@ fun SearchScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(12.dp)
+            .padding(MediumPadding)
     ) {
         SearchTextField(
             modifier = Modifier.fillMaxWidth(),
@@ -79,7 +82,7 @@ fun SearchScreen(
             }
         )
 
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(SmallPadding))
 
         SearchListState(uiState = uiState)
     }
@@ -92,8 +95,8 @@ fun SearchListState(
     LazyColumn(
         verticalArrangement = Arrangement.SpaceEvenly,
         contentPadding = PaddingValues(
-            top = 12.dp,
-            bottom = 12.dp
+            top = MediumPadding,
+            bottom = MediumPadding
         )
     ) {
         when (uiState) {
@@ -136,18 +139,18 @@ fun EventItem(
     Row(
         modifier = Modifier
             .fillMaxSize()
-            .padding(12.dp)
+            .padding(MediumPadding)
     ) {
         if (event.imageUrl.isNullOrEmpty().not()) {
             AsyncImage(
                 model = event.imageUrl,
-                contentDescription = "Event Image",
+                contentDescription = stringResource(id = R.string.event_image),
                 modifier = Modifier
                     .fillMaxHeight()
                     .width(150.dp),
                 contentScale = ContentScale.FillBounds
             )
-            Spacer(Modifier.width(8.dp))
+            Spacer(Modifier.width(SmallPadding))
         }
 
         Column {
@@ -157,7 +160,7 @@ fun EventItem(
                 fontWeight = FontWeight.Bold
             )
 
-            Spacer(Modifier.height(4.dp))
+            Spacer(Modifier.height(ExtraSmallPadding))
 
             if (event.readableDate.isNotEmpty()) {
                 Text(
@@ -188,18 +191,18 @@ fun SearchTextField(
         },
         leadingIcon = {
             Icon(
-                modifier = Modifier.padding(4.dp),
+                modifier = Modifier.padding(ExtraSmallPadding),
                 imageVector = Icons.Default.Search,
-                contentDescription = "Search"
+                contentDescription = stringResource(id = R.string.search)
             )
         },
         trailingIcon = {
             if (query.isNotEmpty()) {
                 IconButton(onClick = { onQueryChanged("") }) {
                     Icon(
-                        modifier = Modifier.padding(end = 4.dp),
+                        modifier = Modifier.padding(end = ExtraSmallPadding),
                         imageVector = Icons.Default.Close,
-                        contentDescription = "Close"
+                        contentDescription = stringResource(id = R.string.close)
                     )
                 }
             }
