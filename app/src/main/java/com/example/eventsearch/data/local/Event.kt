@@ -1,6 +1,5 @@
 package com.example.eventsearch.data.local
 
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 
@@ -11,10 +10,10 @@ import androidx.room.Entity
 **/
 @Entity(primaryKeys = ["id", "keyword"])
 data class Event(
-    @NonNull @ColumnInfo(name = "id") val id: String,
-    @NonNull @ColumnInfo(name= "keyword") val keyword: String,
-    @NonNull @ColumnInfo(name = "name") val name: String,
-    @NonNull @ColumnInfo(name = "readable_date") val readableDate: String,
+    @ColumnInfo(name = "id") val id: String,
+    @ColumnInfo(name= "keyword") val keyword: String,
+    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "readable_date") val readableDate: String,
     @ColumnInfo(name = "image_url") val imageUrl: String?
 )
 
