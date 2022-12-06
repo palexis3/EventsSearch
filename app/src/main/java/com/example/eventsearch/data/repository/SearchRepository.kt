@@ -4,6 +4,6 @@ import com.example.eventsearch.data.local.EventUi
 import kotlinx.coroutines.flow.Flow
 
 interface SearchRepository {
-    suspend fun fetchFromApi(keyword: String)
+    suspend fun refresh(keyword: String)
     fun search(keyword: String): Flow<List<EventUi>>
 }

@@ -32,7 +32,5 @@ fun <T> Flow<T>.asResult(): Flow<Result<T>> {
                 false
             }
         }
-        .catch {
-            emit(Result.Error(it))
-        }
+        .catch { emit(Result.Error(it)) }
 }

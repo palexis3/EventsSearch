@@ -58,7 +58,7 @@ fun SearchScreen(
 
     LaunchedEffect(key1 = query) {
         if (query.isNotEmpty()) {
-            viewModel.search(query)
+            viewModel.search(query.trim())
         } else {
             viewModel.resetSearch()
         }
@@ -136,8 +136,7 @@ fun EventItem(
     Row(
         modifier = Modifier
             .fillMaxSize()
-            .padding(12.dp),
-        horizontalArrangement = Arrangement.Start
+            .padding(12.dp)
     ) {
         if (event.imageUrl.isNullOrEmpty().not()) {
             AsyncImage(

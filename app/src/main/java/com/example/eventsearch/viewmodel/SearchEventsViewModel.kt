@@ -35,7 +35,12 @@ class SearchEventsViewModel @Inject constructor(
                     val searchState = when (result) {
                         is Result.Success -> {
                             val events = result.data
-                            SearchListUiState.Success(events)
+
+                            if (events.isNotEmpty()) {
+                                SearchListUiState.Success(events)
+                            } else {
+                                SearchListUiState.Error
+                            }
                         }
                         is Result.Loading -> SearchListUiState.Loading
                         is Result.Error -> SearchListUiState.Error

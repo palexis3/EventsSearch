@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface EventDao {
-    @Query("SELECT * FROM event where keyword = :keyword")
+    @Query(value = "SELECT * FROM event WHERE keyword = :keyword")
     fun getEvents(keyword: String): Flow<List<Event>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertEvents(events: List<Event>)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertEvents(events: List<Event>)
 }
