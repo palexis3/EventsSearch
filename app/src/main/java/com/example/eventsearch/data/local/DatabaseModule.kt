@@ -22,6 +22,7 @@ object DatabaseModule {
         ).build()
 
     @Provides
+    @Singleton
     fun provideEventsDao(eventDatabase: EventDatabase): EventDao =
         eventDatabase.eventDao()
 }
