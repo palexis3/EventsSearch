@@ -45,7 +45,7 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.eventsearch.R
-import com.example.eventsearch.data.local.EventUi
+import com.example.eventsearch.data.model.EventUi
 import com.example.eventsearch.ui.theme.ExtraSmallPadding
 import com.example.eventsearch.ui.theme.MediumPadding
 import com.example.eventsearch.ui.theme.SmallPadding
@@ -124,8 +124,8 @@ fun SearchListState(
                 }
             }
             is SearchListUiState.Success -> {
-                items(uiState.events) { event ->
-                    EventItem(event)
+                items(uiState.eventUis) { eventUi ->
+                    EventItem(eventUi)
                 }
             }
         }
@@ -134,16 +134,16 @@ fun SearchListState(
 
 @Composable
 fun EventItem(
-    event: EventUi
+    eventUi: EventUi
 ) {
     Row(
         modifier = Modifier
             .fillMaxSize()
             .padding(MediumPadding)
     ) {
-        if (event.imageUrl.isNullOrEmpty().not()) {
+        if (eventUi.imageUrl.isNullOrEmpty().not()) {
             AsyncImage(
-                model = event.imageUrl,
+                model = eventUi.imageUrl,
                 contentDescription = stringResource(id = R.string.event_image),
                 modifier = Modifier
                     .fillMaxHeight()
@@ -155,16 +155,16 @@ fun EventItem(
 
         Column {
             Text(
-                text = event.name,
+                text = eventUi.name,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
 
             Spacer(Modifier.height(ExtraSmallPadding))
 
-            if (event.readableDate.isNotEmpty()) {
+            if (eventUi.readableDate.isNotEmpty()) {
                 Text(
-                    text = event.readableDate,
+                    text = eventUi.readableDate,
                     style = MaterialTheme.typography.bodyMedium,
                     fontStyle = FontStyle.Italic
                 )

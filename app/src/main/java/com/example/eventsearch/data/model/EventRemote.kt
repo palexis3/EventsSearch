@@ -1,11 +1,13 @@
 package com.example.eventsearch.data.model
 
-import com.example.eventsearch.data.local.Event
 import com.example.eventsearch.helper.formatToReadableDate
 import com.example.eventsearch.helper.toDate
 
 private const val IMAGE_TYPE = "PORTRAIT"
 
+/**
+ * EventRemote is the data model fetched from EventsApi.
+ */
 data class EventRemote(
     val id: String,
     val name: String,
