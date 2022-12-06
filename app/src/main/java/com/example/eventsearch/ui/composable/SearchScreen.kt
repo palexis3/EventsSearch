@@ -1,5 +1,7 @@
-package com.example.eventsearch.composable
+package com.example.eventsearch.ui.composable
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,14 +47,21 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.eventsearch.R
-import com.example.eventsearch.data.local.EventUi
-import com.example.eventsearch.viewmodel.SearchEventsViewModel
-import com.example.eventsearch.viewmodel.SearchListUiState
+import com.example.eventsearch.data.model.EventUi
+import com.example.eventsearch.helper.WifiService
+import com.example.eventsearch.ui.theme.ExtraSmallPadding
+import com.example.eventsearch.ui.theme.MediumPadding
+import com.example.eventsearch.ui.theme.SmallPadding
+import com.example.eventsearch.ui.viewmodel.SearchEventsViewModel
+import com.example.eventsearch.ui.viewmodel.SearchListUiState
+import com.example.eventsearch.ui.viewmodel.WifiServiceViewModel
 
+@RequiresApi(Build.VERSION_CODES.M)
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SearchScreen(
-    viewModel: SearchEventsViewModel = hiltViewModel()
+    viewModel: SearchEventsViewModel = hiltViewModel(),
+    wifiServiceViewModel: WifiServiceViewModel = hiltViewModel()
 ) {
     var query by rememberSaveable { mutableStateOf("") }
 
@@ -69,7 +78,7 @@ fun SearchScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(12.dp)
+            .padding(MediumPadding)
     ) {
         SearchTextField(
             modifier = Modifier.fillMaxWidth(),
@@ -79,21 +88,27 @@ fun SearchScreen(
             }
         )
 
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(SmallPadding))
 
-        SearchListState(uiState = uiState)
+        SearchListState(
+            uiState = uiState,
+            wifiService = wifiServiceViewModel.wifiService
+        )
     }
 }
 
+
+@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun SearchListState(
-    uiState: SearchListUiState
+    uiState: SearchListUiState,
+    wifiService: WifiService
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.SpaceEvenly,
         contentPadding = PaddingValues(
-            top = 12.dp,
-            bottom = 12.dp
+            top = MediumPadding,
+            bottom = MediumPadding
         )
     ) {
         when (uiState) {
@@ -121,47 +136,52 @@ fun SearchListState(
                 }
             }
             is SearchListUiState.Success -> {
-                items(uiState.events) { event ->
-                    EventItem(event)
+                items(uiState.eventUis) { eventUi ->
+                    EventUiItem(
+                        eventUi,
+                        wifiService
+                    )
                 }
             }
         }
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.M)
 @Composable
-fun EventItem(
-    event: EventUi
+fun EventUiItem(
+    eventUi: EventUi,
+    wifiService: WifiService
 ) {
     Row(
         modifier = Modifier
             .fillMaxSize()
-            .padding(12.dp)
+            .padding(MediumPadding)
     ) {
-        if (event.imageUrl.isNullOrEmpty().not()) {
+        if (eventUi.imageUrl.isNullOrEmpty().not() && wifiService.isOnline()) {
             AsyncImage(
-                model = event.imageUrl,
-                contentDescription = "Event Image",
+                model = eventUi.imageUrl,
+                contentDescription = stringResource(id = R.string.event_image),
                 modifier = Modifier
                     .fillMaxHeight()
                     .width(150.dp),
                 contentScale = ContentScale.FillBounds
             )
-            Spacer(Modifier.width(8.dp))
+            Spacer(Modifier.width(SmallPadding))
         }
 
         Column {
             Text(
-                text = event.name,
+                text = eventUi.name,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
 
-            Spacer(Modifier.height(4.dp))
+            Spacer(Modifier.height(ExtraSmallPadding))
 
-            if (event.readableDate.isNotEmpty()) {
+            if (eventUi.readableDate.isNotEmpty()) {
                 Text(
-                    text = event.readableDate,
+                    text = eventUi.readableDate,
                     style = MaterialTheme.typography.bodyMedium,
                     fontStyle = FontStyle.Italic
                 )
@@ -183,23 +203,24 @@ fun SearchTextField(
         modifier = modifier,
         value = query,
         singleLine = true,
+        placeholder = { Text(stringResource(id = R.string.search)) },
         onValueChange = { value ->
             onQueryChanged(value)
         },
         leadingIcon = {
             Icon(
-                modifier = Modifier.padding(4.dp),
+                modifier = Modifier.padding(ExtraSmallPadding),
                 imageVector = Icons.Default.Search,
-                contentDescription = "Search"
+                contentDescription = stringResource(id = R.string.search)
             )
         },
         trailingIcon = {
             if (query.isNotEmpty()) {
                 IconButton(onClick = { onQueryChanged("") }) {
                     Icon(
-                        modifier = Modifier.padding(end = 4.dp),
+                        modifier = Modifier.padding(end = ExtraSmallPadding),
                         imageVector = Icons.Default.Close,
-                        contentDescription = "Close"
+                        contentDescription = stringResource(id = R.string.close)
                     )
                 }
             }

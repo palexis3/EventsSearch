@@ -1,8 +1,8 @@
-package com.example.eventsearch.viewmodel
+package com.example.eventsearch.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.eventsearch.data.local.EventUi
+import com.example.eventsearch.data.model.EventUi
 import com.example.eventsearch.helper.Result
 import com.example.eventsearch.helper.asResult
 import com.example.eventsearch.data.repository.SearchRepository
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 sealed interface SearchListUiState {
-    data class Success(val events: List<EventUi>) : SearchListUiState
+    data class Success(val eventUis: List<EventUi>) : SearchListUiState
     object Error : SearchListUiState
     object Loading : SearchListUiState
     object Uninitialized : SearchListUiState
@@ -34,10 +34,10 @@ class SearchEventsViewModel @Inject constructor(
                 .collect { result ->
                     val searchState = when (result) {
                         is Result.Success -> {
-                            val events = result.data
+                            val eventUis = result.data
 
-                            if (events.isNotEmpty()) {
-                                SearchListUiState.Success(events)
+                            if (eventUis.isNotEmpty()) {
+                                SearchListUiState.Success(eventUis)
                             } else {
                                 SearchListUiState.Error
                             }

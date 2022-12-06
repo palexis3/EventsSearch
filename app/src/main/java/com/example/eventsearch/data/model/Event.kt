@@ -1,13 +1,17 @@
-package com.example.eventsearch.data.local
+package com.example.eventsearch.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 
 /** Note:
-    Multiple keywords can point to the same articles so we can’t rely on using the article’s id as
-    the identifier because an article may be tagged to multiple keywords so we’ll use a composite key
-    to ensure duplicate events are being tied to individual keywords
-**/
+     1) Event is the data model that represents a table in the 'event' database and as such is
+        consumed at the database layer.
+
+     2) Multiple keywords can point to the same articles so we can’t rely on using the article’s id as
+        the identifier because an article may be tagged to multiple keywords so we’ll use a composite key
+        consisting of [id & keyword] to ensure duplicate events are being tied to individual keywords
+*/
+
 @Entity(primaryKeys = ["id", "keyword"])
 data class Event(
     @ColumnInfo(name = "id") val id: String,
@@ -21,11 +25,4 @@ fun Event.toEventUi() = EventUi(
     name = this.name,
     readableDate = this.readableDate,
     imageUrl = this.imageUrl
-)
-
-// EventUi is the data model consumed at the UI layer
-data class EventUi(
-    val name: String,
-    val readableDate: String,
-    val imageUrl: String?,
 )
