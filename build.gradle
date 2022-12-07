@@ -13,6 +13,8 @@ buildscript {
         material3_version = '1.0.0'
         timber_version = '5.0.1'
         room_version = '2.4.3'
+        coroutines_test_version = '1.6.4'
+        turbine_test_version = '0.12.1'
     }
 }
 

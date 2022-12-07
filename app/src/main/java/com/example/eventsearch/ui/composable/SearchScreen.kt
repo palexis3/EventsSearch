@@ -53,6 +53,7 @@ import com.example.eventsearch.ui.theme.ExtraSmallPadding
 import com.example.eventsearch.ui.theme.MediumPadding
 import com.example.eventsearch.ui.theme.SmallPadding
 import com.example.eventsearch.ui.viewmodel.SearchEventsViewModel
+import com.example.eventsearch.ui.viewmodel.SearchScreenUiState
 import com.example.eventsearch.ui.viewmodel.SearchListUiState
 import com.example.eventsearch.ui.viewmodel.WifiServiceViewModel
 
@@ -73,7 +74,7 @@ fun SearchScreen(
         }
     }
 
-    val uiState: SearchListUiState by viewModel.searchListState.collectAsStateWithLifecycle()
+    val screenUiState: SearchScreenUiState by viewModel.searchListState.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -91,7 +92,7 @@ fun SearchScreen(
         Spacer(Modifier.height(SmallPadding))
 
         SearchListState(
-            uiState = uiState,
+            listUiState = screenUiState.listUiState,
             wifiService = wifiServiceViewModel.wifiService
         )
     }
@@ -101,7 +102,7 @@ fun SearchScreen(
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun SearchListState(
-    uiState: SearchListUiState,
+    listUiState: SearchListUiState,
     wifiService: WifiService
 ) {
     LazyColumn(
@@ -111,7 +112,7 @@ fun SearchListState(
             bottom = MediumPadding
         )
     ) {
-        when (uiState) {
+        when (listUiState) {
             // Uninitialized state means we have an empty view
             SearchListUiState.Uninitialized -> {}
             SearchListUiState.Error -> {
@@ -136,7 +137,7 @@ fun SearchListState(
                 }
             }
             is SearchListUiState.Success -> {
-                items(uiState.eventUis) { eventUi ->
+                items(listUiState.eventUis) { eventUi ->
                     EventUiItem(
                         eventUi,
                         wifiService

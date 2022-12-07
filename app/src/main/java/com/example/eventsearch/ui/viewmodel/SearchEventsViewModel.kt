@@ -10,7 +10,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 sealed interface SearchListUiState {
@@ -20,19 +19,23 @@ sealed interface SearchListUiState {
     object Uninitialized : SearchListUiState
 }
 
+data class SearchScreenUiState(
+    val listUiState: SearchListUiState
+)
+
 @HiltViewModel
 class SearchEventsViewModel @Inject constructor(
     private val searchRepository: SearchRepository
 ) : ViewModel() {
 
-    private val _searchListState = MutableStateFlow<SearchListUiState>(SearchListUiState.Uninitialized)
+    private val _searchListState = MutableStateFlow(SearchScreenUiState(SearchListUiState.Uninitialized))
     val searchListState = _searchListState.asStateFlow()
 
     fun search(keyword: String) {
         viewModelScope.launch {
             searchRepository.search(keyword).asResult()
                 .collect { result ->
-                    val searchState = when (result) {
+                    val listUiState = when (result) {
                         is Result.Success -> {
                             val eventUis = result.data
 
@@ -45,12 +48,12 @@ class SearchEventsViewModel @Inject constructor(
                         is Result.Loading -> SearchListUiState.Loading
                         is Result.Error -> SearchListUiState.Error
                     }
-                    _searchListState.update { searchState }
+                    _searchListState.value = SearchScreenUiState(listUiState)
                 }
         }
     }
 
     fun resetSearch() {
-        _searchListState.update { SearchListUiState.Uninitialized }
+        _searchListState.value = SearchScreenUiState(SearchListUiState.Uninitialized)
     }
 }
