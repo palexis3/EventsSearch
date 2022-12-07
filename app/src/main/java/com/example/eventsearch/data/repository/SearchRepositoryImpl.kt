@@ -11,6 +11,7 @@ import com.example.eventsearch.helper.WifiService
 import javax.inject.Inject
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -36,6 +37,7 @@ class SearchRepositoryImpl @Inject constructor(
                     .map { list ->
                         list.map { it.toEventUi() }
                     }
+                    .distinctUntilChanged()
 
                 dbFlow.collect {
                     emit(it)
