@@ -53,7 +53,6 @@ import com.example.eventsearch.ui.theme.ExtraSmallPadding
 import com.example.eventsearch.ui.theme.MediumPadding
 import com.example.eventsearch.ui.theme.SmallPadding
 import com.example.eventsearch.ui.viewmodel.SearchEventsViewModel
-import com.example.eventsearch.ui.viewmodel.SearchScreenUiState
 import com.example.eventsearch.ui.viewmodel.SearchListUiState
 import com.example.eventsearch.ui.viewmodel.WifiServiceViewModel
 
@@ -74,7 +73,7 @@ fun SearchScreen(
         }
     }
 
-    val screenUiState: SearchScreenUiState by viewModel.searchListState.collectAsStateWithLifecycle()
+    val listUiState: SearchListUiState by viewModel.searchListUiState.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -92,7 +91,7 @@ fun SearchScreen(
         Spacer(Modifier.height(SmallPadding))
 
         SearchListState(
-            listUiState = screenUiState.listUiState,
+            listUiState = listUiState,
             wifiService = wifiServiceViewModel.wifiService
         )
     }

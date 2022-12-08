@@ -34,10 +34,10 @@ class SearchRepositoryImpl @Inject constructor(
 
                 val dbFlow: Flow<List<EventUi>> = dao
                     .getEvents(keyword)
+                    .distinctUntilChanged()
                     .map { list ->
                         list.map { it.toEventUi() }
                     }
-                    .distinctUntilChanged()
 
                 dbFlow.collect {
                     emit(it)
