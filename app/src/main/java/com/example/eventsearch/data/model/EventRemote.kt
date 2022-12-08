@@ -1,7 +1,7 @@
 package com.example.eventsearch.data.model
 
-import com.example.eventsearch.helper.formatToReadableDate
-import com.example.eventsearch.helper.toDate
+import com.example.eventsearch.utils.formatToReadableDate
+import com.example.eventsearch.utils.toDate
 
 private const val IMAGE_TYPE = "PORTRAIT"
 

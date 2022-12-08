@@ -3,7 +3,8 @@ package com.example.eventsearch.data.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 
-/** Note:
+/**
+  Note:
      1) Event is the data model that represents a table in the 'event' database and as such is
         consumed at the database layer.
 

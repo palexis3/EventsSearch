@@ -2,7 +2,7 @@ package com.example.eventsearch
 
 import android.app.Application
 import android.content.Context
-import com.example.eventsearch.helper.WifiService
+import com.example.eventsearch.utils.WifiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

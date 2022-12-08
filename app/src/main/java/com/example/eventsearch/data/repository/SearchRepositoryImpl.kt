@@ -7,7 +7,7 @@ import com.example.eventsearch.data.model.EventUi
 import com.example.eventsearch.data.model.toEvent
 import com.example.eventsearch.data.model.toEventUi
 import com.example.eventsearch.data.remote.EventsApi
-import com.example.eventsearch.helper.WifiService
+import com.example.eventsearch.utils.WifiService
 import javax.inject.Inject
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow

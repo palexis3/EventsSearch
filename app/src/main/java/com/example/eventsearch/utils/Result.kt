@@ -1,4 +1,4 @@
-package com.example.eventsearch.helper
+package com.example.eventsearch.utils
 
 import java.io.IOException
 import kotlinx.coroutines.delay
