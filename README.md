@@ -6,13 +6,15 @@ To locally run the app on your own device for testing, make sure to do ONE of th
 
 
 ### Search Screen Details
-[SearchScreen](https://github.com/palexis3/EventsSearch/blob/main/app/src/main/java/com/example/eventsearch/ui/composable/SearchScreen.kt) composable consumes a ui state instance referred to as [searchListUiState](https://github.com/palexis3/EventsSearch/blob/main/app/src/main/java/com/example/eventsearch/ui/composable/SearchScreen.kt#L76) from the [SearchEventsViewModel](https://github.com/palexis3/EventsSearch/blob/main/app/src/main/java/com/example/eventsearch/ui/viewmodel/SearchEventsViewModel.kt) that consists of the states at the bottom of this section.
+[SearchScreen](https://github.com/palexis3/EventsSearch/blob/main/app/src/main/java/com/example/eventsearch/ui/composable/SearchScreen.kt) composable consumes a ui state instance referred to as [searchListUiState](https://github.com/palexis3/EventsSearch/blob/main/app/src/main/java/com/example/eventsearch/ui/composable/SearchScreen.kt#L76) from the `SearchEventsViewModel` that consists of the states at the bottom of this section.
 
 [SearchEventsViewModel](https://github.com/palexis3/EventsSearch/blob/main/app/src/main/java/com/example/eventsearch/ui/viewmodel/SearchEventsViewModel.kt)  contains two functions:
  - **search(..)**: Accepts a non-empty string to interact with the `SearchRepository` to return either the `Success`, `Error` or `Loading` states that the 
      `SearchScreen` composable will handle
  - **reset()**: This is called from the `SearchScreen` composable to notify us that we should go back to the `Uninitialized` state since the textfield has
      an empty string.
+     
+     - `Success`, `Error`, `Loading` and `Uninitialized` are instances of [SearchListUiState](https://github.com/palexis3/EventsSearch/blob/main/app/src/main/java/com/example/eventsearch/ui/viewmodel/SearchEventsViewModel.kt#L16)
 
 
 |                       Uninitialized                               |                         Loading                                   |                              Error                                |                             Success                               |                                                              
