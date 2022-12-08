@@ -25,14 +25,14 @@ class SearchEventsViewModel @Inject constructor(
     private val searchRepository: SearchRepository
 ) : ViewModel() {
 
-    private val _searchListState = MutableStateFlow<SearchListUiState>(SearchListUiState.Uninitialized)
-    val searchListState = _searchListState.asStateFlow()
+    private val _searchListUiState = MutableStateFlow<SearchListUiState>(SearchListUiState.Uninitialized)
+    val searchListUiState = _searchListUiState.asStateFlow()
 
     fun search(keyword: String) {
         viewModelScope.launch {
             searchRepository.search(keyword).asResult()
                 .collect { result ->
-                    val searchState = when (result) {
+                    val listState = when (result) {
                         is Result.Success -> {
                             val eventUis = result.data
 
@@ -45,12 +45,12 @@ class SearchEventsViewModel @Inject constructor(
                         is Result.Loading -> SearchListUiState.Loading
                         is Result.Error -> SearchListUiState.Error
                     }
-                    _searchListState.update { searchState }
+                    _searchListUiState.update { listState }
                 }
         }
     }
 
     fun resetSearch() {
-        _searchListState.update { SearchListUiState.Uninitialized }
+        _searchListUiState.update { SearchListUiState.Uninitialized }
     }
 }

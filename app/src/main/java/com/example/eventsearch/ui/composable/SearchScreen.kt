@@ -73,7 +73,7 @@ fun SearchScreen(
         }
     }
 
-    val uiState: SearchListUiState by viewModel.searchListState.collectAsStateWithLifecycle()
+    val listUiState: SearchListUiState by viewModel.searchListUiState.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -91,7 +91,7 @@ fun SearchScreen(
         Spacer(Modifier.height(SmallPadding))
 
         SearchListState(
-            uiState = uiState,
+            listUiState = listUiState,
             wifiService = wifiServiceViewModel.wifiService
         )
     }
@@ -101,7 +101,7 @@ fun SearchScreen(
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun SearchListState(
-    uiState: SearchListUiState,
+    listUiState: SearchListUiState,
     wifiService: WifiService
 ) {
     LazyColumn(
@@ -111,7 +111,7 @@ fun SearchListState(
             bottom = MediumPadding
         )
     ) {
-        when (uiState) {
+        when (listUiState) {
             // Uninitialized state means we have an empty view
             SearchListUiState.Uninitialized -> {}
             SearchListUiState.Error -> {
@@ -136,7 +136,7 @@ fun SearchListState(
                 }
             }
             is SearchListUiState.Success -> {
-                items(uiState.eventUis) { eventUi ->
+                items(listUiState.eventUis) { eventUi ->
                     EventUiItem(
                         eventUi,
                         wifiService
