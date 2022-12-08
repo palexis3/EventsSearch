@@ -13,7 +13,7 @@ class TestSearchRepository : SearchRepository {
     override fun search(keyword: String): Flow<List<EventUi>> = eventUiFlow
 
     /**
-     * No operation for testing since this is a network call
+     * No operation for testing since this would be a network call in actual implementation
      */
     override suspend fun refresh(keyword: String) {}
 

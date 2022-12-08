@@ -1,7 +1,7 @@
 package com.example.eventsearch.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.eventsearch.helper.WifiService
+import com.example.eventsearch.utils.WifiService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

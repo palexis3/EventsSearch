@@ -1,4 +1,4 @@
-package com.example.eventsearch.helper
+package com.example.eventsearch.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

@@ -1,4 +1,4 @@
-package com.example.eventsearch.helper
+package com.example.eventsearch.utils
 
 import java.text.SimpleDateFormat
 import java.util.Date
