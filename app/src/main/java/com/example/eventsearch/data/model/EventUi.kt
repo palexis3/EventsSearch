@@ -5,6 +5,6 @@ package com.example.eventsearch.data.model
  */
 data class EventUi(
     val name: String,
-    val readableDate: String,
+    val readableDate: String?,
     val imageUrl: String?,
 )

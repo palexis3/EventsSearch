@@ -179,9 +179,9 @@ fun EventUiItem(
 
             Spacer(Modifier.height(ExtraSmallPadding))
 
-            if (eventUi.readableDate.isNotEmpty()) {
+            if (eventUi.readableDate.isNullOrEmpty().not()) {
                 Text(
-                    text = eventUi.readableDate,
+                    text = eventUi.readableDate!!,
                     style = MaterialTheme.typography.bodyMedium,
                     fontStyle = FontStyle.Italic
                 )

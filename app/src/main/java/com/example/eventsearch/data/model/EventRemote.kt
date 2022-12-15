@@ -14,7 +14,7 @@ data class EventRemote(
     val images: List<Image>,
     val dates: Dates
 ) {
-    val readableDate: String = dates.start.localDate.toDate().formatToReadableDate()
+    val readableDate: String? = dates.start.localDate.toDate()?.formatToReadableDate()
     val imageUrl: String? = images.filter { it.url?.contains(IMAGE_TYPE) ?: false }[0].url
 }
 
