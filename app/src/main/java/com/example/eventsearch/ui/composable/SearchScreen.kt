@@ -171,13 +171,15 @@ fun EventUiItem(
         }
 
         Column {
-            Text(
-                text = eventUi.name,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
+            if (eventUi.name.isNullOrEmpty().not()) {
+                Text(
+                    text = eventUi.name!!,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold
+                )
 
-            Spacer(Modifier.height(ExtraSmallPadding))
+                Spacer(Modifier.height(ExtraSmallPadding))
+            }
 
             if (eventUi.readableDate.isNullOrEmpty().not()) {
                 Text(

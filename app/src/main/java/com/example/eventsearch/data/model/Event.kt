@@ -15,9 +15,9 @@ import androidx.room.Entity
 
 @Entity(primaryKeys = ["id", "keyword"])
 data class Event(
-    @ColumnInfo(name = "id") val id: String,
+    @ColumnInfo(name = "id") val id: String?,
     @ColumnInfo(name= "keyword") val keyword: String,
-    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "readable_date") val readableDate: String?,
     @ColumnInfo(name = "image_url") val imageUrl: String?
 )

@@ -9,13 +9,13 @@ private const val IMAGE_TYPE = "PORTRAIT"
  * EventRemote is the data model fetched from EventsApi.
  */
 data class EventRemote(
-    val id: String,
-    val name: String,
-    val images: List<Image>,
-    val dates: Dates
+    val id: String?,
+    val name: String?,
+    val images: List<Image>?,
+    val dates: Dates?
 ) {
-    val readableDate: String? = dates.start.localDate.toDate()?.formatToReadableDate()
-    val imageUrl: String? = images.filter { it.url?.contains(IMAGE_TYPE) ?: false }[0].url
+    val readableDate: String? = dates?.start?.localDate?.toDate()?.formatToReadableDate()
+    val imageUrl: String? = images?.filter { it.url?.contains(IMAGE_TYPE) ?: false }?.get(0)?.url
 }
 
 data class Image(
@@ -23,15 +23,15 @@ data class Image(
 )
 
 data class EventsList(
-    val events: List<EventRemote>
+    val events: List<EventRemote>?
 )
 
 data class Dates(
-    val start: LocalDate
+    val start: LocalDate?
 )
 
 data class LocalDate(
-    val localDate: String
+    val localDate: String?
 )
 
 data class SearchResponse(
