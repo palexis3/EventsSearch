@@ -8,7 +8,7 @@ import java.util.TimeZone
 fun String.toDate(
     dateFormat: String = "yyyy-MM-dd",
     timeZone: TimeZone = TimeZone.getTimeZone("UTC")
-): Date {
+): Date? {
     val parser = SimpleDateFormat(dateFormat, Locale.getDefault()).also {
         it.timeZone = timeZone
     }

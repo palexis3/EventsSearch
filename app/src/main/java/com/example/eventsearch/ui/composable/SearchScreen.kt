@@ -171,17 +171,19 @@ fun EventUiItem(
         }
 
         Column {
-            Text(
-                text = eventUi.name,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
-
-            Spacer(Modifier.height(ExtraSmallPadding))
-
-            if (eventUi.readableDate.isNotEmpty()) {
+            if (eventUi.name.isNullOrEmpty().not()) {
                 Text(
-                    text = eventUi.readableDate,
+                    text = eventUi.name!!,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Spacer(Modifier.height(ExtraSmallPadding))
+            }
+
+            if (eventUi.readableDate.isNullOrEmpty().not()) {
+                Text(
+                    text = eventUi.readableDate!!,
                     style = MaterialTheme.typography.bodyMedium,
                     fontStyle = FontStyle.Italic
                 )
