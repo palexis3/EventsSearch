@@ -3,8 +3,10 @@ package com.example.eventsearch.data.repository
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.eventsearch.data.local.EventDao
+import com.example.eventsearch.data.model.EventDetailsUi
 import com.example.eventsearch.data.model.EventUi
 import com.example.eventsearch.data.model.toEvent
+import com.example.eventsearch.data.model.toEventDetailsUi
 import com.example.eventsearch.data.model.toEventUi
 import com.example.eventsearch.data.remote.EventsApi
 import com.example.eventsearch.utils.WifiService
@@ -45,10 +47,16 @@ class SearchRepositoryImpl @Inject constructor(
             }
         }
 
+    override fun getDetails(id: String): Flow<EventDetailsUi> = flow {
+        val eventDetailsResponse = api.getDetails(id)
+        val eventDetailsUi = eventDetailsResponse.toEventDetailsUi()
+        emit(eventDetailsUi)
+    }
+
     override suspend fun refresh(keyword: String) {
         val eventRemote = api.search(keyword)
 
-        if (eventRemote._embedded != null) {
+        if (eventRemote._embedded?.events != null) {
             eventRemote._embedded.events.map { item ->
                 item.toEvent(keyword)
             }.also { events ->
