@@ -1,4 +1,4 @@
-package com.example.eventsearch.data.model
+package com.example.eventsearch.data.model.event
 
 /**
  * EventUi is the data model consumed at the UI layer

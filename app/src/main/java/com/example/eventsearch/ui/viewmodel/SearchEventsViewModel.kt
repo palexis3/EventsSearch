@@ -2,10 +2,10 @@ package com.example.eventsearch.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.eventsearch.data.model.EventUi
+import com.example.eventsearch.data.model.event.EventUi
 import com.example.eventsearch.utils.Result
 import com.example.eventsearch.utils.asResult
-import com.example.eventsearch.data.repository.SearchRepository
+import com.example.eventsearch.data.repository.search.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow

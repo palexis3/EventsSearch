@@ -1,8 +1,8 @@
 package com.example.eventsearch.data.remote
 
 import com.example.eventsearch.BuildConfig
-import com.example.eventsearch.data.model.EventDetailsResponse
-import com.example.eventsearch.data.model.SearchResponse
+import com.example.eventsearch.data.model.details.EventDetailsResponse
+import com.example.eventsearch.data.model.event.SearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

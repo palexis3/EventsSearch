@@ -1,4 +1,4 @@
-package com.example.eventsearch.data.model
+package com.example.eventsearch.data.model.event
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -1,6 +1,6 @@
 package com.example.eventsearch.ui.viewmodel
 
-import com.example.eventsearch.data.model.EventUi
+import com.example.eventsearch.data.model.event.EventUi
 import com.example.eventsearch.data.repository.TestSearchRepository
 import com.example.eventsearch.utils.testWithScheduler
 import kotlinx.coroutines.Dispatchers

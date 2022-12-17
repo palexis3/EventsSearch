@@ -1,5 +1,7 @@
 package com.example.eventsearch.data.repository
 
+import com.example.eventsearch.data.repository.search.SearchRepository
+import com.example.eventsearch.data.repository.search.SearchRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
