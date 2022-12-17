@@ -11,7 +11,7 @@ import com.example.eventsearch.utils.toDate
  * EventRemote is the data model fetched from EventsApi.
  */
 data class EventRemote(
-    val id: String?,
+    val id: String,
     val name: String?,
     val images: List<Image>?,
     val dates: Dates?
