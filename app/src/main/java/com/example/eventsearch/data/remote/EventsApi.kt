@@ -17,5 +17,5 @@ interface EventsApi {
     @GET("/discovery/v2/events/{id}")
     suspend fun getDetails(
         @Path("id") id: String
-    ): EventDetailsResponse
+    ) : EventDetailsResponse
 }

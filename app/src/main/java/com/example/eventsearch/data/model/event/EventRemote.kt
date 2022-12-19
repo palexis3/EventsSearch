@@ -3,6 +3,7 @@ package com.example.eventsearch.data.model.event
 import com.example.eventsearch.data.model.Dates
 import com.example.eventsearch.data.model.IMAGE_TYPE
 import com.example.eventsearch.data.model.Image
+import com.example.eventsearch.data.model.PriceRange
 import com.example.eventsearch.utils.formatToReadableDate
 import com.example.eventsearch.utils.toDate
 
@@ -13,8 +14,10 @@ import com.example.eventsearch.utils.toDate
 data class EventRemote(
     val id: String,
     val name: String?,
+    val description: String?,
     val images: List<Image>?,
-    val dates: Dates?
+    val dates: Dates?,
+    val priceRanges: List<PriceRange>
 ) {
     val readableDate: String? = dates?.start?.localDate?.toDate()?.formatToReadableDate()
     val imageUrl: String? = images?.filter { it.url?.contains(IMAGE_TYPE) ?: false }?.get(0)?.url

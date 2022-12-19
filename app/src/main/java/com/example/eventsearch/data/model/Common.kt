@@ -10,6 +10,12 @@ data class LocalDate(
     val localDate: String?
 )
 
+data class PriceRange(
+    val min: Float?,
+    val max: Float?,
+    val currency: String?
+)
+
 data class Image(
     val url: String?
 )
