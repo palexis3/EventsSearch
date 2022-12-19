@@ -16,8 +16,7 @@ data class EventRemote(
     val name: String?,
     val description: String?,
     val images: List<Image>?,
-    val dates: Dates?,
-    val priceRanges: List<PriceRange>
+    val dates: Dates?
 ) {
     val readableDate: String? = dates?.start?.localDate?.toDate()?.formatToReadableDate()
     val imageUrl: String? = images?.filter { it.url?.contains(IMAGE_TYPE) ?: false }?.get(0)?.url

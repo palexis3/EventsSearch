@@ -7,6 +7,7 @@ import com.example.eventsearch.data.repository.details.DetailsRepository
 import com.example.eventsearch.utils.Result
 import com.example.eventsearch.utils.asResult
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
