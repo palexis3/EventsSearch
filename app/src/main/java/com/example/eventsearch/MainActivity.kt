@@ -13,9 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.eventsearch.ui.composable.DetailsScreen
 import com.example.eventsearch.ui.composable.SearchScreen
 import com.example.eventsearch.ui.navigation.Details
 import com.example.eventsearch.ui.navigation.Search
+import com.example.eventsearch.ui.navigation.navigateToDetailsScreen
 import com.example.eventsearch.ui.theme.EventSearchTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,7 +47,11 @@ fun ShowApp() {
             modifier = Modifier.padding(innerPadding)
         ){
             composable(route = Search.route) {
-                SearchScreen()
+                SearchScreen(
+                    navigateToDetailsScreen = { id ->
+                        navController.navigateToDetailsScreen(id)
+                    }
+                )
             }
 
             composable(
@@ -54,7 +60,10 @@ fun ShowApp() {
             ) { navBackStackEntry ->
                 val id = navBackStackEntry.arguments?.getString(Details.eventIdArg)
                 if (id != null) {
-                    // TODO: Implement details screen
+                    DetailsScreen(
+                        id = id,
+                        closeScreen = { navController.popBackStack() }
+                    )
                 }
             }
         }

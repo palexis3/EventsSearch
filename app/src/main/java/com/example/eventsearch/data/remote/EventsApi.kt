@@ -14,7 +14,7 @@ interface EventsApi {
         @Query("keyword") keyword: String
     ) : SearchResponse
 
-    @GET("/discovery/v2/events/{id}")
+    @GET("/discovery/v2/events/{id}?apikey=${BuildConfig.API_KEY}")
     suspend fun getDetails(
         @Path("id") id: String
     ) : EventDetailsResponse

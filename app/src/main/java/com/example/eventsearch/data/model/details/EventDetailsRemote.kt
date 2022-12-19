@@ -1,10 +1,10 @@
 package com.example.eventsearch.data.model.details
 
 import com.example.eventsearch.data.model.Dates
-import com.example.eventsearch.data.model.IMAGE_TYPE
 import com.example.eventsearch.data.model.Image
 import com.example.eventsearch.utils.formatToReadableDate
 import com.example.eventsearch.utils.toDate
+import java.util.Locale
 
 data class EventDetailsResponse(
     val id: String?,
@@ -16,7 +16,9 @@ data class EventDetailsResponse(
     val dates: Dates?
 ) {
     val readableDate: String? = dates?.start?.localDate?.toDate()?.formatToReadableDate()
-    val imageUrl: String? = images?.filter { it.url?.contains(IMAGE_TYPE) ?: false }?.get(0)?.url
+    val imageUrls: List<String>? = images?.mapNotNull { it.url }
+    val priceRangesFormatted: List<String>? =
+        priceRanges?.map { "${it.min} - ${it.max} ${it.currency?.uppercase(Locale.getDefault())}" }
 }
 
 data class Venue(
@@ -38,6 +40,7 @@ data class Embedded(
 fun EventDetailsResponse.toEventDetailsUi() = EventDetailsUi(
     name = this.name,
     description = this.description,
-    image = this.imageUrl,
-    date = this.readableDate
+    imageUrls = this.imageUrls,
+    date = this.readableDate,
+    priceRanges = priceRangesFormatted
 )

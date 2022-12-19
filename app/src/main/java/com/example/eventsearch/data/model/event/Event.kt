@@ -23,6 +23,7 @@ data class Event(
 )
 
 fun Event.toEventUi() = EventUi(
+    id = this.id,
     name = this.name,
     readableDate = this.readableDate,
     imageUrl = this.imageUrl
