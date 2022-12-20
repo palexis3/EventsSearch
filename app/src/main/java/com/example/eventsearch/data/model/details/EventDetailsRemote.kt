@@ -4,6 +4,7 @@ import com.example.eventsearch.data.model.Dates
 import com.example.eventsearch.data.model.Image
 import com.example.eventsearch.utils.formatToReadableDate
 import com.example.eventsearch.utils.toDate
+import com.example.eventsearch.utils.formatToCurrency
 import java.util.Locale
 
 data class EventDetailsResponse(
@@ -18,7 +19,8 @@ data class EventDetailsResponse(
     val readableDate: String? = dates?.start?.localDate?.toDate()?.formatToReadableDate()
     val imageUrls: List<String>? = images?.mapNotNull { it.url }
     val priceRangesFormatted: List<String>? =
-        priceRanges?.map { "${it.min} - ${it.max} ${it.currency?.uppercase(Locale.getDefault())}" }
+        priceRanges?.map {
+            "$${formatToCurrency(it.min)} - $${formatToCurrency(it.max)} ${it.currency?.uppercase(Locale.getDefault())}" }
 }
 
 data class Venue(

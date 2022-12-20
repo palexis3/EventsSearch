@@ -143,11 +143,10 @@ fun ShowDetailsUi(
 
     detailsUi.priceRanges?.let { priceRanges ->
         if (priceRanges.isNotEmpty()) {
-            LazyRow {
-                items(priceRanges) { priceRange ->
-                    Text(text = priceRange, style = MaterialTheme.typography.labelLarge)
-                }
-            }
+            Text(
+                text = priceRanges[0],
+                style = MaterialTheme.typography.bodySmall
+            )
         }
     }
 
