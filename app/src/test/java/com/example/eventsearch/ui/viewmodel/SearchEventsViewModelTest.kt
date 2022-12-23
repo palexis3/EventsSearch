@@ -170,17 +170,20 @@ class SearchEventsViewModelTest {
             EventUi(
                 "comedy-show1",
                 "todays-date",
-                "/comedy-show1.jpg"
+                "/comedy-show1.jpg",
+                "image-url1"
             ),
             EventUi(
                 "comedy-show2",
                 "next-week-date",
-                "/comedy-show2.jpg"
+                "/comedy-show2.jpg",
+                "image-url2"
             ),
             EventUi(
                 "comedy-show3",
                 "tomorrow-date",
-                "/comedy-show3.jpg"
+                "/comedy-show3.jpg",
+                "image-url3"
             )
         )
 
@@ -188,17 +191,20 @@ class SearchEventsViewModelTest {
             EventUi(
                 "sport1",
                 "todays-date",
-                "/sport1.jpg"
+                "/sport1.jpg",
+                "image-url1"
             ),
             EventUi(
                 "sport2",
                 "next-week-date",
-                "/sport2.jpg"
+                "/sport2.jpg",
+                "image-url2"
             ),
             EventUi(
                 "sport3",
                 "tomorrow-date",
-                "/sport3.jpg"
+                "/sport3.jpg",
+                "image-url3"
             )
         )
     }
