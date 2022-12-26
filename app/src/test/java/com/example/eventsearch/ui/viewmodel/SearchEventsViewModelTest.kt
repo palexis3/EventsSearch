@@ -2,6 +2,7 @@ package com.example.eventsearch.ui.viewmodel
 
 import com.example.eventsearch.data.model.event.EventUi
 import com.example.eventsearch.data.repository.TestSearchRepository
+import com.example.eventsearch.utils.MainDispatcherRule
 import com.example.eventsearch.utils.testWithScheduler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -15,12 +16,13 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SearchEventsViewModelTest {
-
-    private val testDispatcher = StandardTestDispatcher()
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     private val searchRepository = TestSearchRepository()
 
@@ -29,13 +31,6 @@ class SearchEventsViewModelTest {
     @Before
     fun setup() {
         viewModel = SearchEventsViewModel(searchRepository)
-        Dispatchers.setMain(testDispatcher)
-    }
-
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain()
-        testDispatcher.cancel()
     }
 
     @Test
