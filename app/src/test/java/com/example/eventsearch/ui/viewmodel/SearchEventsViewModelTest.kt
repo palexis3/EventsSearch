@@ -4,14 +4,8 @@ import com.example.eventsearch.data.model.event.EventUi
 import com.example.eventsearch.data.repository.TestSearchRepository
 import com.example.eventsearch.utils.MainDispatcherRule
 import com.example.eventsearch.utils.testWithScheduler
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue

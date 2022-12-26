@@ -45,7 +45,7 @@ fun ShowApp() {
             navController = navController,
             startDestination = Search.route,
             modifier = Modifier.padding(innerPadding)
-        ){
+        ) {
             composable(route = Search.route) {
                 SearchScreen(
                     navigateToDetailsScreen = { id ->
