@@ -1,16 +1,20 @@
-package com.example.eventsearch.data.model
+package com.example.eventsearch.data.model.event
 
+import com.example.eventsearch.data.model.Dates
+import com.example.eventsearch.data.model.IMAGE_TYPE
+import com.example.eventsearch.data.model.Image
+import com.example.eventsearch.data.model.PriceRange
 import com.example.eventsearch.utils.formatToReadableDate
 import com.example.eventsearch.utils.toDate
 
-private const val IMAGE_TYPE = "PORTRAIT"
 
 /**
  * EventRemote is the data model fetched from EventsApi.
  */
 data class EventRemote(
-    val id: String?,
+    val id: String,
     val name: String?,
+    val description: String?,
     val images: List<Image>?,
     val dates: Dates?
 ) {
@@ -18,20 +22,8 @@ data class EventRemote(
     val imageUrl: String? = images?.filter { it.url?.contains(IMAGE_TYPE) ?: false }?.get(0)?.url
 }
 
-data class Image(
-    val url: String?
-)
-
 data class EventsList(
     val events: List<EventRemote>?
-)
-
-data class Dates(
-    val start: LocalDate?
-)
-
-data class LocalDate(
-    val localDate: String?
 )
 
 data class SearchResponse(

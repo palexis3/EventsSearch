@@ -1,4 +1,4 @@
-package com.example.eventsearch.data.model
+package com.example.eventsearch.data.model.event
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -15,7 +15,7 @@ import androidx.room.Entity
 
 @Entity(primaryKeys = ["id", "keyword"])
 data class Event(
-    @ColumnInfo(name = "id") val id: String?,
+    @ColumnInfo(name = "id") val id: String,
     @ColumnInfo(name= "keyword") val keyword: String,
     @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "readable_date") val readableDate: String?,
@@ -23,6 +23,7 @@ data class Event(
 )
 
 fun Event.toEventUi() = EventUi(
+    id = this.id,
     name = this.name,
     readableDate = this.readableDate,
     imageUrl = this.imageUrl

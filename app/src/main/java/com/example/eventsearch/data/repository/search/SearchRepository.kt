@@ -1,6 +1,6 @@
-package com.example.eventsearch.data.repository
+package com.example.eventsearch.data.repository.search
 
-import com.example.eventsearch.data.model.EventUi
+import com.example.eventsearch.data.model.event.EventUi
 import kotlinx.coroutines.flow.Flow
 
 interface SearchRepository {

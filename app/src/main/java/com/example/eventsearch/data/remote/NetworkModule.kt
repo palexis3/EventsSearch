@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -30,6 +31,8 @@ object NetworkModule {
 
         val client: OkHttpClient = OkHttpClient.Builder().apply {
             addInterceptor(loggingInterceptor)
+            retryOnConnectionFailure(true)
+            connectTimeout(100, TimeUnit.SECONDS)
         }.build()
 
         return Retrofit.Builder()

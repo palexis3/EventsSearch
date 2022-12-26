@@ -2,6 +2,7 @@ package com.example.eventsearch.ui.composable
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -47,7 +48,7 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.eventsearch.R
-import com.example.eventsearch.data.model.EventUi
+import com.example.eventsearch.data.model.event.EventUi
 import com.example.eventsearch.utils.WifiService
 import com.example.eventsearch.ui.theme.ExtraSmallPadding
 import com.example.eventsearch.ui.theme.MediumPadding
@@ -61,7 +62,8 @@ import com.example.eventsearch.ui.viewmodel.WifiServiceViewModel
 @Composable
 fun SearchScreen(
     viewModel: SearchEventsViewModel = hiltViewModel(),
-    wifiServiceViewModel: WifiServiceViewModel = hiltViewModel()
+    wifiServiceViewModel: WifiServiceViewModel = hiltViewModel(),
+    navigateToDetailsScreen: (String) -> Unit
 ) {
     var query by rememberSaveable { mutableStateOf("") }
 
@@ -92,7 +94,8 @@ fun SearchScreen(
 
         SearchListState(
             listUiState = listUiState,
-            wifiService = wifiServiceViewModel.wifiService
+            wifiService = wifiServiceViewModel.wifiService,
+            navigateToDetailsScreen = navigateToDetailsScreen
         )
     }
 }
@@ -102,7 +105,8 @@ fun SearchScreen(
 @Composable
 fun SearchListState(
     listUiState: SearchListUiState,
-    wifiService: WifiService
+    wifiService: WifiService,
+    navigateToDetailsScreen: (String) -> Unit
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.SpaceEvenly,
@@ -139,7 +143,8 @@ fun SearchListState(
                 items(listUiState.eventUis) { eventUi ->
                     EventUiItem(
                         eventUi,
-                        wifiService
+                        wifiService,
+                        navigateToDetailsScreen = navigateToDetailsScreen
                     )
                 }
             }
@@ -151,11 +156,13 @@ fun SearchListState(
 @Composable
 fun EventUiItem(
     eventUi: EventUi,
-    wifiService: WifiService
+    wifiService: WifiService,
+    navigateToDetailsScreen: (String) -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxSize()
+            .clickable { navigateToDetailsScreen(eventUi.id) }
             .padding(MediumPadding)
     ) {
         if (eventUi.imageUrl.isNullOrEmpty().not() && wifiService.isOnline()) {

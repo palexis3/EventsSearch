@@ -1,20 +1,22 @@
-package com.example.eventsearch.data.repository
+package com.example.eventsearch.data.repository.search
 
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.eventsearch.data.local.EventDao
-import com.example.eventsearch.data.model.EventUi
-import com.example.eventsearch.data.model.toEvent
-import com.example.eventsearch.data.model.toEventUi
+import com.example.eventsearch.data.model.event.EventUi
+import com.example.eventsearch.data.model.event.toEvent
+import com.example.eventsearch.data.model.event.toEventUi
 import com.example.eventsearch.data.remote.EventsApi
 import com.example.eventsearch.utils.WifiService
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SearchRepositoryImpl @Inject constructor(
     private val api: EventsApi,
@@ -45,10 +47,10 @@ class SearchRepositoryImpl @Inject constructor(
             }
         }
 
-    override suspend fun refresh(keyword: String) {
+    override suspend fun refresh(keyword: String) = withContext(Dispatchers.IO) {
         val eventRemote = api.search(keyword)
 
-        if (eventRemote._embedded != null) {
+        if (eventRemote._embedded?.events != null) {
             eventRemote._embedded.events.map { item ->
                 item.toEvent(keyword)
             }.also { events ->
